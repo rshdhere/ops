@@ -1,0 +1,15 @@
+# In-cluster KVM execution pool (self-managed clusters with /dev/kvm workers).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../namespaces.yaml
+  - ../crd/sandboxes.devin.yaml
+  - ../crd/firecrackermachines.devin.yaml
+  - ../crd/firecrackerhosts.devin.yaml
+  - ../crd/snapshots.devin.yaml
+  - ../orchestrator/rbac.yaml
+  - ../orchestrator/deployment.yaml
+  - ../firecracker/node-pool.yaml
+  - ../firecracker/daemonset.yaml
+  - ../scheduler/daemonset.yaml

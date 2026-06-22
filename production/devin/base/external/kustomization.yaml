@@ -1,0 +1,15 @@
+# External execution hosts (recommended for managed Kubernetes without nested KVM).
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../namespaces.yaml
+  - ../crd/sandboxes.devin.yaml
+  - ../crd/firecrackermachines.devin.yaml
+  - ../crd/firecrackerhosts.devin.yaml
+  - ../crd/snapshots.devin.yaml
+  - ../orchestrator/rbac.yaml
+  - ../orchestrator/deployment.yaml
+
+patches:
+  - path: orchestrator-env.yaml

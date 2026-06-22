@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/external
+  - firecracker-hosts.yaml
+
+images:
+  - name: devin-orchestrator
+    newName: rshdhere/devin-orchestrator
+    newTag: latest
+
+labels:
+  - includeSelectors: false
+    pairs:
+      app.kubernetes.io/part-of: devin
+      app.kubernetes.io/managed-by: argocd

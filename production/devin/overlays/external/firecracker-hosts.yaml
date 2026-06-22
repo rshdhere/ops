@@ -1,0 +1,26 @@
+# Replace addresses with real EC2 private IPs for production execution hosts.
+apiVersion: devin/v1
+kind: FirecrackerHost
+metadata:
+  name: fc-prod-01
+  namespace: devin-firecracker
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  address: http://10.0.12.45:9092
+  capacity:
+    cpu: 8
+    memory: 16Gi
+---
+apiVersion: devin/v1
+kind: FirecrackerHost
+metadata:
+  name: fc-prod-02
+  namespace: devin-firecracker
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  address: http://10.0.12.46:9092
+  capacity:
+    cpu: 8
+    memory: 16Gi

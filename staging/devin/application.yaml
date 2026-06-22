@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devin-staging
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/rshdhere/staging-ops.git
+    targetRevision: HEAD
+    path: staging/devin/overlays/external
+    kustomize:
+      buildOptions: --load-restrictor LoadRestrictionsNone
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: devin-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - RespectIgnoreDifferences=true
+  ignoreDifferences:
+    - group: devin
+      kind: FirecrackerHost
+      jqPathExpressions:
+        - .status
