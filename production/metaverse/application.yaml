@@ -10,7 +10,7 @@ spec:
     server: https://kubernetes.default.svc
   source:
     path: production/metaverse
-    repoURL: https://github.com/rshdhere/staging-ops.git
+    repoURL: https://github.com/rshdhere/ops.git
     targetRevision: HEAD
     directory:
       recurse: false

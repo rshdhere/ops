@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/rshdhere/staging-ops.git
+    repoURL: https://github.com/rshdhere/ops.git
     targetRevision: HEAD
     path: production/devin/overlays/external
     kustomize:
