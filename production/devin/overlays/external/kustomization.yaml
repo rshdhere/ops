@@ -9,6 +9,12 @@ images:
   - name: devin-orchestrator
     newName: rshdhere/devin-orchestrator
     newTag: latest
+  - name: devin-server
+    newName: rshdhere/devin-server
+    newTag: latest
+  - name: devin-web
+    newName: rshdhere/devin-web
+    newTag: latest
 
 labels:
   - includeSelectors: false

@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devin-server
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app: devin-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devin-server
+  template:
+    metadata:
+      labels:
+        app: devin-server
+    spec:
+      serviceAccountName: devin-server
+      containers:
+        - name: server
+          image: devin-server:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+          envFrom:
+            - secretRef:
+                name: devin-server
+          readinessProbe:
+            httpGet:
+              path: /api/v1/
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/v1/
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devin-server
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  labels:
+    app: devin-server
+spec:
+  selector:
+    app: devin-server
+  ports:
+    - name: http
+      port: 8080
+      targetPort: http

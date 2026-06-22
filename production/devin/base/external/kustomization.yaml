@@ -10,6 +10,11 @@ resources:
   - ../crd/snapshots.devin.yaml
   - ../orchestrator/rbac.yaml
   - ../orchestrator/deployment.yaml
+  - ../app/serviceaccount-server.yaml
+  - ../app/server.yaml
+  - ../app/web.yaml
+  - ../app/ingress.yaml
+  - ../vault/external-secret.yaml
 
 patches:
   - path: orchestrator-env.yaml

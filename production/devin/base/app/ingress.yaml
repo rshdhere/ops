@@ -1,0 +1,39 @@
+# Replace hostnames and TLS secret names with your DNS / cert-manager setup.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: devin-ingress
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - devin.example.com
+      secretName: devin-web-tls
+    - hosts:
+        - api.devin.example.com
+      secretName: devin-api-tls
+  rules:
+    - host: devin.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: devin-web
+                port:
+                  number: 80
+    - host: api.devin.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: devin-server
+                port:
+                  number: 8080
