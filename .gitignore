@@ -1,0 +1,2 @@
+# Local-only GitOps runbook (not part of the Argo CD source of truth)
+apply.md
