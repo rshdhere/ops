@@ -20,7 +20,7 @@ rules:
   - apiGroups: [""]
     resources: ["nodes"]
     verbs: ["get", "list", "watch"]
-  - apiGroups: ["devin"]
+  - apiGroups: ["devin.baby"]
     resources:
       - sandboxes
       - sandboxes/status

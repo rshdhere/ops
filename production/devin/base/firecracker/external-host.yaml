@@ -3,7 +3,7 @@
 #
 #   kubectl apply -f deploy/kubernetes/firecracker/external-host.yaml
 #
-apiVersion: devin/v1
+apiVersion: devin.baby/v1
 kind: FirecrackerHost
 metadata:
   name: fc-prod-01
@@ -14,7 +14,7 @@ spec:
     cpu: 8
     memory: 16Gi
 ---
-apiVersion: devin/v1
+apiVersion: devin.baby/v1
 kind: FirecrackerHost
 metadata:
   name: fc-prod-02

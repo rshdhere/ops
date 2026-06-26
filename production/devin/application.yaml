@@ -23,7 +23,7 @@ spec:
       - ServerSideApply=true
       - RespectIgnoreDifferences=true
   ignoreDifferences:
-    - group: devin
+    - group: devin.baby
       kind: FirecrackerHost
       jqPathExpressions:
         - .status
