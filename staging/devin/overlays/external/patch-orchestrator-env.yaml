@@ -1,0 +1,22 @@
+# Staging runs every devin tier inside a single namespace (devin-staging),
+# so point the orchestrator's namespace env vars there. Node registration is
+# disabled because staging uses external Firecracker hosts.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devin-orchestrator
+  namespace: devin-system
+spec:
+  template:
+    spec:
+      containers:
+        - name: orchestrator
+          env:
+            - name: ORCHESTRATOR_NODE_REGISTER_ENABLED
+              value: "false"
+            - name: APP_NAMESPACE
+              value: devin-staging
+            - name: SANDBOX_NAMESPACE
+              value: devin-staging
+            - name: FIRECRACKER_NAMESPACE
+              value: devin-staging

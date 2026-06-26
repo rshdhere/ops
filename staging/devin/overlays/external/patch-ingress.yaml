@@ -1,23 +1,22 @@
-# Replace hostnames and TLS secret names with your DNS / cert-manager setup.
+# Override devin ingress hostnames for staging.
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: devin-ingress
   namespace: devin-app
   annotations:
-    argocd.argoproj.io/sync-wave: "5"
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - devin.baby
+        - staging.devin.baby
       secretName: devin-web-tls
     - hosts:
-        - api.devin.baby
+        - staging-api.devin.baby
       secretName: devin-api-tls
   rules:
-    - host: devin.baby
+    - host: staging.devin.baby
       http:
         paths:
           - path: /
@@ -27,7 +26,7 @@ spec:
                 name: devin-web
                 port:
                   number: 80
-    - host: api.devin.baby
+    - host: staging-api.devin.baby
       http:
         paths:
           - path: /

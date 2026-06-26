@@ -1,12 +1,26 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
+# Staging shares the cluster with production. The devin CRDs and namespaces are
+# cluster-scoped / shared and are owned by the production app, so staging does
+# NOT manage them here. Everything else is pinned into a single isolated
+# namespace so it cannot collide with the production devin app.
+namespace: devin-staging
+
 resources:
-  - ../../../../production/devin/base/external
+  - rbac.yaml
+  - ../../../../production/devin/base/orchestrator/deployment.yaml
+  - ../../../../production/devin/base/app/serviceaccount-server.yaml
+  - ../../../../production/devin/base/app/server.yaml
+  - ../../../../production/devin/base/app/web.yaml
+  - ../../../../production/devin/base/app/ingress.yaml
+  - ../../../../production/devin/base/vault/external-secret.yaml
   - firecracker-hosts.yaml
 
 patches:
+  - path: patch-orchestrator-env.yaml
   - path: patch-external-secret.yaml
+  - path: patch-ingress.yaml
 
 images:
   - name: devin-orchestrator

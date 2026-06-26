@@ -15,7 +15,7 @@ spec:
       buildOptions: --load-restrictor LoadRestrictionsNone
   destination:
     server: https://kubernetes.default.svc
-    namespace: devin-system
+    namespace: devin-staging
   syncPolicy:
     automated:
       prune: true
