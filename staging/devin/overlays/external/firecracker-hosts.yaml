@@ -1,5 +1,5 @@
 # Replace addresses with real staging execution host private IPs.
-apiVersion: devin/v1
+apiVersion: devin.baby/v1
 kind: FirecrackerHost
 metadata:
   name: fc-staging-01

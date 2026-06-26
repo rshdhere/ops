@@ -3,9 +3,9 @@ kind: CustomResourceDefinition
 metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "0"
-  name: sandboxes.devin
+  name: sandboxes.devin.baby
 spec:
-  group: devin
+  group: devin.baby
   scope: Namespaced
   names:
     plural: sandboxes
