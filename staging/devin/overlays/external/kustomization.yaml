@@ -9,6 +9,7 @@ namespace: devin-staging
 
 resources:
   - rbac.yaml
+  - orchestrator-lb.yaml
   - ../../../../production/devin/base/orchestrator/deployment.yaml
   - ../../../../production/devin/base/app/serviceaccount-server.yaml
   - ../../../../production/devin/base/app/server.yaml
