@@ -1,4 +1,4 @@
-# Path B — external execution host on EC2 (10.0.7.138).
+# Path B — external execution host on EC2 (10.0.4.73).
 # Scheduler and firecracker-host daemons run on the host; not deployed on EKS.
 apiVersion: devin.baby/v1
 kind: FirecrackerHost
@@ -8,8 +8,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "5"
 spec:
-  address: http://10.0.7.138:9092
-  schedulerAddress: http://10.0.7.138:9091
+  address: http://10.0.4.73:9092
+  schedulerAddress: http://10.0.4.73:9091
   capacity:
     cpu: 8
     memory: 16Gi
