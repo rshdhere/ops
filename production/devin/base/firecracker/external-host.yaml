@@ -1,26 +1,16 @@
 # Register dedicated EC2 execution hosts (outside the cluster) with the orchestrator.
-# Apply one FirecrackerHost per host. Replace addresses and capacity with real values.
+# Apply one FirecrackerHost per host via the external overlay (firecracker-hosts.yaml).
 #
-#   kubectl apply -f deploy/kubernetes/firecracker/external-host.yaml
+#   kubectl apply -f production/devin/overlays/external/firecracker-hosts.yaml
 #
 apiVersion: devin.baby/v1
 kind: FirecrackerHost
 metadata:
-  name: fc-prod-01
+  name: devin-production-fc-01
   namespace: devin-firecracker
 spec:
-  address: http://10.0.12.45:9092
-  capacity:
-    cpu: 8
-    memory: 16Gi
----
-apiVersion: devin.baby/v1
-kind: FirecrackerHost
-metadata:
-  name: fc-prod-02
-  namespace: devin-firecracker
-spec:
-  address: http://10.0.12.46:9092
+  address: http://10.0.7.138:9092
+  schedulerAddress: http://10.0.7.138:9091
   capacity:
     cpu: 8
     memory: 16Gi

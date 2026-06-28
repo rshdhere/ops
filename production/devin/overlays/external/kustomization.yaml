@@ -5,6 +5,9 @@ resources:
   - ../../base/external
   - firecracker-hosts.yaml
 
+patches:
+  - path: patch-external-secret.yaml
+
 images:
   - name: devin-orchestrator
     newName: rshdhere/devin-orchestrator

@@ -1,13 +1,14 @@
-# Replace addresses with real staging execution host private IPs.
+# Path B — shares the production execution host for now (10.0.7.138).
+# CR lives in devin-staging (staging overlay namespace) so the staging orchestrator can watch it.
 apiVersion: devin.baby/v1
 kind: FirecrackerHost
 metadata:
-  name: fc-staging-01
-  namespace: devin-firecracker
+  name: devin-staging-fc-01
   annotations:
     argocd.argoproj.io/sync-wave: "5"
 spec:
-  address: http://10.0.20.10:9092
+  address: http://10.0.7.138:9092
+  schedulerAddress: http://10.0.7.138:9091
   capacity:
-    cpu: 4
-    memory: 8Gi
+    cpu: 8
+    memory: 16Gi
