@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: devin-postgres
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    app: devin-postgres
+spec:
+  serviceName: devin-postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devin-postgres
+  template:
+    metadata:
+      labels:
+        app: devin-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16-alpine
+          ports:
+            - containerPort: 5432
+              name: postgres
+          env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          envFrom:
+            - secretRef:
+                name: devin-postgres
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 20Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devin-postgres
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app: devin-postgres
+spec:
+  type: ClusterIP
+  selector:
+    app: devin-postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres
+---
+# Internal NLB so EC2 execution-host schedulers (SERVICE_MODE=worker) can reach Postgres.
+apiVersion: v1
+kind: Service
+metadata:
+  name: devin-postgres-external
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internal
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+  labels:
+    app: devin-postgres
+spec:
+  type: LoadBalancer
+  selector:
+    app: devin-postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: postgres

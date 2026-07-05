@@ -1,15 +1,15 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-# Staging shares the cluster with production. The devin CRDs and namespaces are
-# cluster-scoped / shared and are owned by the production app, so staging does
-# NOT manage them here. Everything else is pinned into a single isolated
-# namespace so it cannot collide with the production devin app.
 namespace: devin-staging
 
 resources:
   - rbac.yaml
   - orchestrator-lb.yaml
+  - ../../../../production/devin/base/postgres/external-secret.yaml
+  - ../../../../production/devin/base/postgres/statefulset.yaml
+  - ../../../../production/devin/base/brain/deployment.yaml
+  - ../../../../production/devin/base/platform/configmap.yaml
   - ../../../../production/devin/base/orchestrator/deployment.yaml
   - ../../../../production/devin/base/app/serviceaccount-server.yaml
   - ../../../../production/devin/base/app/server.yaml
@@ -21,6 +21,9 @@ resources:
 patches:
   - path: patch-orchestrator-env.yaml
   - path: patch-external-secret.yaml
+  - path: patch-postgres-secret.yaml
+  - path: patch-platform-config.yaml
+  - path: patch-server-database.yaml
   - path: patch-ingress.yaml
 
 images:
@@ -32,6 +35,9 @@ images:
     newTag: 918fa6ded6502c50f29cf82a671da488e7d13d9c
   - name: devin-web
     newName: rshdhere/devin-web
+    newTag: 918fa6ded6502c50f29cf82a671da488e7d13d9c
+  - name: devin-brain
+    newName: rshdhere/devin-brain
     newTag: 918fa6ded6502c50f29cf82a671da488e7d13d9c
 
 labels:

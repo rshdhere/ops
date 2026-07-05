@@ -3,10 +3,15 @@ kind: Kustomization
 
 resources:
   - ../../base/external
+  - ../../base/postgres/external-secret.yaml
+  - ../../base/postgres/statefulset.yaml
+  - ../../base/brain/deployment.yaml
+  - ../../base/platform/configmap.yaml
   - firecracker-hosts.yaml
 
 patches:
   - path: patch-external-secret.yaml
+  - path: patch-server-database.yaml
 
 images:
   - name: devin-orchestrator
@@ -17,6 +22,9 @@ images:
     newTag: f6c4dc4be4ca01d5a683574a063d0fe7e6147cd4
   - name: devin-web
     newName: rshdhere/devin-web
+    newTag: f6c4dc4be4ca01d5a683574a063d0fe7e6147cd4
+  - name: devin-brain
+    newName: rshdhere/devin-brain
     newTag: f6c4dc4be4ca01d5a683574a063d0fe7e6147cd4
 
 labels:

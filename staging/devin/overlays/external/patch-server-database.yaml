@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devin-server
+spec:
+  template:
+    spec:
+      containers:
+        - name: server
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: devin-postgres
+                  key: DATABASE_URL

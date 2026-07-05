@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devin-brain
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  labels:
+    app: devin-brain
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: devin-brain
+  template:
+    metadata:
+      labels:
+        app: devin-brain
+    spec:
+      containers:
+        - name: brain
+          image: devin-brain:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9092
+              name: http
+          env:
+            - name: BRAIN_PORT
+              value: "9092"
+            - name: SERVICE_MODE
+              value: brain
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: devin-postgres
+                  key: DATABASE_URL
+            - name: EXECUTION_WORKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: devin-platform
+                  key: EXECUTION_WORKER_URL
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devin-brain
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
+  labels:
+    app: devin-brain
+spec:
+  selector:
+    app: devin-brain
+  ports:
+    - name: http
+      port: 9092
+      targetPort: http

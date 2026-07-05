@@ -1,0 +1,12 @@
+# Per-environment URLs for in-cluster services and external execution workers.
+# Overlay patches EXECUTION_WORKER_URL to the execution-host scheduler NLB or private IP.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: devin-platform
+  namespace: devin-app
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+data:
+  EXECUTION_WORKER_URL: http://10.0.4.73:9091
+  SCHEDULER_URL: http://devin-brain:9092
