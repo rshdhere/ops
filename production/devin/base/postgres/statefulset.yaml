@@ -9,6 +9,9 @@ metadata:
     app: devin-postgres
 spec:
   serviceName: devin-postgres
+  persistentVolumeClaimRetentionPolicy:
+    whenDeleted: Retain
+    whenScaled: Retain
   replicas: 1
   selector:
     matchLabels:
