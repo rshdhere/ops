@@ -5,6 +5,7 @@ metadata:
   namespace: devin-app
   annotations:
     argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
   labels:
     app: devin-postgres
 spec:

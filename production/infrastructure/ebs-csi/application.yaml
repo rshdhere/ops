@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://kubernetes-sigs.github.io/aws-ebs-csi-driver
     chart: aws-ebs-csi-driver
-    targetRevision: 2.45.1
+    targetRevision: 2.62.0
     helm:
       values: |
         controller:
