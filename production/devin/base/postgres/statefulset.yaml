@@ -14,6 +14,12 @@ spec:
     whenDeleted: Retain
     whenScaled: Retain
   replicas: 1
+  podManagementPolicy: OrderedReady
+  revisionHistoryLimit: 10
+  updateStrategy:
+    type: RollingUpdate
+    rollingUpdate:
+      partition: 0
   selector:
     matchLabels:
       app: devin-postgres
@@ -60,12 +66,15 @@ spec:
             limits:
               memory: 1Gi
   volumeClaimTemplates:
-    - metadata:
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
         name: data
       spec:
         accessModes:
           - ReadWriteOnce
         storageClassName: gp2
+        volumeMode: Filesystem
         resources:
           requests:
             storage: 20Gi

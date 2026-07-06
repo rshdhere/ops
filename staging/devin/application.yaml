@@ -27,3 +27,8 @@ spec:
       kind: FirecrackerHost
       jqPathExpressions:
         - .status
+    - group: apps
+      kind: StatefulSet
+      name: devin-postgres
+      jqPathExpressions:
+        - .spec.volumeClaimTemplates[]?.status
