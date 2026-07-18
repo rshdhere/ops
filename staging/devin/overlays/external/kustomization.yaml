@@ -29,16 +29,16 @@ patches:
 images:
   - name: devin-orchestrator
     newName: rshdhere/devin-orchestrator
-    newTag: ff824aed8ee33eaeaee979a6c815166c34806897
+    newTag: bd8f3c4d75f34edfd8f543bc20f34ea97ebf07db
   - name: devin-server
     newName: rshdhere/devin-server
-    newTag: ff824aed8ee33eaeaee979a6c815166c34806897
+    newTag: bd8f3c4d75f34edfd8f543bc20f34ea97ebf07db
   - name: devin-web
     newName: rshdhere/devin-web
-    newTag: ff824aed8ee33eaeaee979a6c815166c34806897
+    newTag: bd8f3c4d75f34edfd8f543bc20f34ea97ebf07db
   - name: devin-brain
     newName: rshdhere/devin-brain
-    newTag: ff824aed8ee33eaeaee979a6c815166c34806897
+    newTag: bd8f3c4d75f34edfd8f543bc20f34ea97ebf07db
 
 labels:
   - includeSelectors: false
