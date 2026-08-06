@@ -1,9 +1,10 @@
 # Path B — shares the production execution host for now (10.0.4.73).
 # CR lives in devin-staging (staging overlay namespace) so the staging orchestrator can watch it.
+# metadata.name MUST match SCHEDULER_HOST_NAME on the EC2 worker (devin-production-fc-01).
 apiVersion: devin.baby/v1
 kind: FirecrackerHost
 metadata:
-  name: devin-staging-fc-01
+  name: devin-production-fc-01
   annotations:
     argocd.argoproj.io/sync-wave: "5"
 spec:
