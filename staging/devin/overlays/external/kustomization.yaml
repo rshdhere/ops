@@ -35,7 +35,7 @@ images:
     newTag: cec98ccdba3e1649b7032c677feb5b0610d647b4
   - name: devin-web
     newName: rshdhere/devin-web
-    newTag: cec98ccdba3e1649b7032c677feb5b0610d647b4
+    newTag: cec98ccdba3e1649b7032c677feb5b0610d647b4-staging
   - name: devin-brain
     newName: rshdhere/devin-brain
     newTag: cec98ccdba3e1649b7032c677feb5b0610d647b4
