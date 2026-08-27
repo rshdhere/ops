@@ -39,6 +39,49 @@ spec:
                 configMapKeyRef:
                   name: devin-platform
                   key: EXECUTION_WORKER_URL
+            - name: OPENAI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: devin-brain
+                  key: OPENAI_API_KEY
+            - name: OPENAI_MODEL
+              valueFrom:
+                secretKeyRef:
+                  name: devin-brain
+                  key: OPENAI_MODEL
+                  optional: true
+            - name: HYDRADB_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: devin-brain
+                  key: HYDRADB_API_KEY
+                  optional: true
+            - name: HYDRADB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: devin-brain
+                  key: HYDRADB_DATABASE
+                  optional: true
+            - name: HYDRADB_TENANT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: devin-brain
+                  key: HYDRADB_TENANT_ID
+                  optional: true
+            - name: HYDRADB_BASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: devin-brain
+                  key: HYDRADB_BASE_URL
+                  optional: true
+            - name: HYDRADB_COLLECTION
+              valueFrom:
+                secretKeyRef:
+                  name: devin-brain
+                  key: HYDRADB_COLLECTION
+                  optional: true
+            - name: SESSION_RETENTION_DAYS
+              value: "30"
           readinessProbe:
             httpGet:
               path: /health

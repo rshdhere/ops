@@ -6,6 +6,7 @@ resources:
   - ../../base/postgres/external-secret.yaml
   - ../../base/postgres/statefulset.yaml
   - ../../base/brain/deployment.yaml
+  - ../../base/brain/external-secret.yaml
   - ../../base/platform/configmap.yaml
   - firecracker-hosts.yaml
 

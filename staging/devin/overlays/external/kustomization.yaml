@@ -9,6 +9,7 @@ resources:
   - ../../../../production/devin/base/postgres/external-secret.yaml
   - ../../../../production/devin/base/postgres/statefulset.yaml
   - ../../../../production/devin/base/brain/deployment.yaml
+  - ../../../../production/devin/base/brain/external-secret.yaml
   - ../../../../production/devin/base/platform/configmap.yaml
   - ../../../../production/devin/base/orchestrator/deployment.yaml
   - ../../../../production/devin/base/app/serviceaccount-server.yaml
@@ -21,6 +22,7 @@ resources:
 patches:
   - path: patch-orchestrator-env.yaml
   - path: patch-external-secret.yaml
+  - path: patch-brain-secret.yaml
   - path: patch-postgres-secret.yaml
   - path: patch-platform-config.yaml
   - path: patch-server-database.yaml
